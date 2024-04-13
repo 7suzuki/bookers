@@ -1,0 +1,63 @@
+<!--indexに投稿一覧を置く-->
+<h1>Books</h1>
+    <table>
+       <thead>
+       　 <tr>
+           <!--見出し行以外にも入ってしまう→eachの上に記載することで回避-->
+           <th>Title</th>
+           <th>Body</th>
+           <th colspan="3"></th>
+        　</tr>
+       </thead>
+       <tbody>
+        <!--eachはtBodyの中にいれる-->
+         <% @books.each do |book| %>
+        <!--@を使うとeachの意味がなくなる|book|を使うので（）の中はbookで統一-->
+         <tr>
+           <td><%= book.title %></td>
+           <td><%= book.body %></td>
+           <td><%= link_to "Show", book_path(book) %></td>
+           <td><%= link_to "Edit", edit_book_path(book) %></td>
+        <!--rails routesコマンドでlibrary_bookが複数あるためmethodを入れてdeleteに確定させている-->
+           <td><%= link_to "Destroy", book_path(book), method: :delete, "data-confirm" => "Are you sure？" %></td>
+         </tr>
+         <!--each~endの間に表示させたいものを入れる-->
+         <!--endはtBodyの中に入れる-->
+            <% end %>
+    　　</tbody>
+    </table>
+
+<!--indexに新規投稿フォーム(new)を置く-->
+<h2>New book</h2>
+
+<!--バリデーション-->
+<% if @book.errors.any? %>
+    <div class=errors>
+      <div class=error-explanation>
+        <%= @book.errors.count %>errors prohibited this book from being saved:  
+      </div>
+      <div class=error-detail>
+        <ul>
+          <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>          
+      </div>
+    </div>
+
+<% end %>
+
+<!--新規投稿フォーム-->
+ <%= form_with model: Book.new, url: books_path do |f| %>
+     <p>Title</p>
+     <%= f.text_field :title %>
+
+     <p>Body</p>
+     <%= f.text_area :body %>
+
+    <br>
+     <%= f.submit 'Create Book' %>
+
+
+ <% end %>
+

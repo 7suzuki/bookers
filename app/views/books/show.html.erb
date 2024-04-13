@@ -1,0 +1,7 @@
+<p>Title:</p><%= @book.title %>
+<!--titleが表示されない場合はidでやってみる。idは記載なくても自動でschemaにある-->
+<p>Body:</p><%= @book.body %>
+
+<br>
+<%= link_to "Edit", edit_book_path(@book) %><%= link_to "Back", books_path %>
+
