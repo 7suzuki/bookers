@@ -1,7 +1,8 @@
 class BooksController < ApplicationController
-  def new
-    @book = Book.new
-  end
+# 投稿と一覧をindexまとめるので新規投稿の単体画面は不要
+  # def new
+  #   @book = Book.new
+  # end
 
   def create
     @book = Book.new(book_params)
@@ -45,7 +46,7 @@ class BooksController < ApplicationController
       flash.now[:alert] = "Book was failed to update."
       #renderは指定先が違う
       render :edit
-      # エラーが出るけど、エラー時は画面遷移しないでほしい
+      
     end
 
   end
